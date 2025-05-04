@@ -53,6 +53,20 @@
         res.status(500).json({ error: 'Failed to save data' });
     }
     });
+    // DELETE: Delete form by ID
+app.delete('/api/forms/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+      const deletedForm = await Form.findByIdAndDelete(id);
+      if (!deletedForm) {
+        return res.status(404).json({ error: 'Form not found' });
+      }
+      res.json({ message: 'Form deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to delete form' });
+    }
+  });
+  
 
     // ========================
     // Start Server
